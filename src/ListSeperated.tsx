@@ -1,11 +1,12 @@
-import React, { useState, ChangeEvent, useEffect, useMemo, useCallback } from 'react'
+import React, { useContext, ChangeEvent, useEffect, useMemo, useCallback } from 'react'
+import { PictureContext } from './PictureContext';
 
 interface Props {
     imgScr: Array<string>;
-    altText: string;
 }
-export const Picture: React.FC<Props> = (props) => {
-    const [pictureIndex, setPicture] = useState(0);
+
+export const ListSeperated: React.FC<Props> = (props) => {
+    const {pictureIndex, setPicture}= useContext(PictureContext);
 
     const handleChange = useCallback( (event: ChangeEvent<HTMLSelectElement>) =>{
         const targedNumber = Number(event.target.value)
@@ -26,8 +27,12 @@ export const Picture: React.FC<Props> = (props) => {
     
     return (
         <div>
-            <p>Zdjecie nr: {pictureIndex}</p>
-            <img src={props.imgScr[pictureIndex]} alt="" />
+            <div>
+            <label>Zdjecie </label>
+            <select onChange={handleChange} value={pictureIndex}>
+                {images}
+            </select>
+            </div>
         </div>
     )
 }
